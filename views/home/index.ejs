@@ -1,0 +1,133 @@
+<!-- <div class="container clearfix">
+    <div class="main">
+        <div id="map-canvas"/>
+    </div>
+</div> -->
+
+<div class="hidden clone-me">
+  <div class="left"><h2 class="addy"></h2><p class="description"></p></div>
+</div>
+
+ <div class="main">
+        <div id="map-canvas"/>
+ </div>
+  <script type="text/javascript">
+//  function updateMap(loc){
+//           var myLatlng = new google.maps.LatLng(loclatitude,loc.longitude);
+//           var marker = new google.maps.Marker({
+//             position: myLatlng,
+//             title:loc.address,
+//             map: map,
+//             icon: {
+//               url: "/images/p_icon.png",
+//               scaledSize: new google.maps.Size(16, 23) // pixels
+//             }
+//           });
+//           markerArray.push(marker);
+//         }
+//  function initialize(position) {
+//    var center = (position != null) ? new google.maps.LatLng(position.coords.latitude, position.coords.longitude) : new new google.maps.LatLng(44.648862, -63.575320);
+//    var mapOptions = {
+//      // Changed to use current location instead of Halifax.
+//      center: center,
+//      zoom: 14,
+//      mapTypeId: google.maps.MapTypeId.ROADMAP
+//    };
+//    map = new google.maps.Map(document.getElementById("map-canvas"),
+//        mapOptions);
+
+//    markerArray = [];
+//    $.ajax({
+//      url: '/locations/getLocations',
+//      dataType: 'json',
+//      success: function(resp) {
+//        $.each(resp.locations,function(i,el){
+//               updateMap(el);
+//        });
+//      }
+//     });
+//  }
+//  $(function(){
+//    if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(initialize);
+//    }else{
+//      initialize(null);
+//    }
+//  });
+</script>
+<script type="text/javascript">
+        
+            function initialize(position) {
+              var center = (position != null) ? new google.maps.LatLng(position.coords.latitude, position.coords.longitude) : new new google.maps.LatLng(44.648862, -63.575320);
+              var mapOptions = {
+                // Changed to use current location instead of Halifax.
+                center: center,
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              var map = new google.maps.Map(document.getElementById("map-canvas"),
+                  mapOptions);
+
+              var infowindow = new google.maps.InfoWindow({
+                        content: "holding...",
+
+                        Width: 0.4
+              });
+
+              $.ajax({
+                url: '/locations/getLocations',
+                dataType: 'json',
+                success: function(resp) {
+                  $.each(resp.locations,function(i,el){
+                    var myLatlng = new google.maps.LatLng(el.latitude,el.longitude);
+                    var marker = new google.maps.Marker({
+                      position: myLatlng,
+                      title:el.address,
+                      map: map,
+                      icon: {
+                        url: "/images/p_icon.png",
+                        scaledSize: new google.maps.Size(16, 23) // pixels
+                      }
+                    });
+                    google.maps.event.addListener(marker, 'click', 
+                      function(event)
+                      {
+                        console.log(el);
+                        var text = "<div class=\"wrapper\"><div class=\"left\"><h2>" + el.address + "</h2><p>" + el.description + "</p></div></div>"
+                        if(el.status == undefined){
+                          text += "<button class=\"btn btn-primary apply\" onClick=\"apply(this)\" data-id=" + el.id + " data-user-id=" + <%= user %> + ">Reserve</button>";
+                        }else{
+                          text += "request pending.";
+                        }
+                        infowindow.setContent(text); 
+                        infowindow.open(map, this);
+                      }
+                    );
+                  });
+                  
+                }
+              });
+            }
+            $(function(){
+              if (navigator.geolocation) {
+               navigator.geolocation.getCurrentPosition(initialize);
+              }else{
+                initialize(null);
+              }
+             
+            });
+
+            (function($){
+              apply = function(x){
+                  var el = $(x);
+                  $.ajax({
+                    url: '/applications/create/?user_id=' + el.attr('data-user-id') + '&location_id='+ el.attr('data-id') ,
+                    dataType: 'json',
+                    success: function(resp) {
+                     console.log('success');
+                    }
+                });
+              }
+            })(jQuery)
+            
+</script>

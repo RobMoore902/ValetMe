@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Valet Me</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <![endif]-->
+    <!--STYLES-->
+    <link rel="stylesheet" href="/linker/styles/bootstrap-wizard.css">
+    <link rel="stylesheet" href="/linker/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/linker/styles/demo.css">
+    <!--STYLES END-->
+    <style>
+    html,body{text-align:left;font-size:1em; height:95%; margin: 0; padding: 0}
+    .container{height:100%; max-width:100%; padding-left:0px; padding-right:0px;}
+    .main{float:left;width:100%;height:100%;}
+    .top-nav{height:10%; background-color: black;}
+    .navbar{margin-bottom: 0px;}
+    .infowindow{}
+    #map-canvas{width:100%; height:100%;}
+	
+	.navbar-default, .footer{
+	
+		
+background: -moz-linear-gradient(top,  rgba(252,255,244,0.9) 0%, rgba(233,233,206,0.8) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,255,244,0.9)), color-stop(100%,rgba(233,233,206,0.8))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(252,255,244,0.9) 0%,rgba(233,233,206,0.8) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(252,255,244,0.9) 0%,rgba(233,233,206,0.8) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(252,255,244,0.9) 0%,rgba(233,233,206,0.8) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(252,255,244,0.9) 0%,rgba(233,233,206,0.8) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6fcfff4', endColorstr='#cce9e9ce',GradientType=0 ); /* IE6-9 */
+
+		width: 100%;
+	}
+	.footer{
+		bottom:0;
+	}
+	.footer p{
+		margin:10px;
+	}
+	
+	#logo{
+		height:40px;
+		position:absolute;
+		left:5px;
+		top:5px;
+	}
+    </style>
+
+  </head>
+  <body>
+      <div class="container">
+        <!-- Nav-bar starts -->
+        <nav class="navbar navbar-default" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img id="logo" src="/images/logo.png"></a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a data-toggle="modal" data-target="#myModal" href="/login">Login</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/users/profile">Profile</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </nav>
+        <!-- Nav-bar ends -->
+         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title"></h4>
+                        </div>
+
+                          <div class="modal-body">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+        <!-- body begin -->
+        <%- body %>
+        <!-- body ends -->
+
+        <!-- Site footer -->
+        <div class="footer">
+          <p>&copy; Vallet Me 2013</p>
+        </div>
+      </div> <!-- /container -->
+
+      <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBXukZ8jR3E1zJ32k43vPFGKJmudlyjoM&sensor=true&libraries=places">
+          </script>
+          <!--SCRIPTS-->
+          <script src="/linker/js/socket.io.js"></script>
+          <script src="/linker/js/sails.io.js"></script>
+          <script src="/linker/js/app.js"></script>
+          <script src="/linker/js/bootstrap-wizard.js"></script>
+          <script src="/linker/js/bootstrap.min.js"></script>
+          <script src="/linker/js/jquery-gmaps-latlon-picker.js"></script>
+          <script src="/linker/js/jquery.geocomplete.min.js"></script>
+          <!--SCRIPTS END-->
+    </body>
+</html>
